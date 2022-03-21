@@ -1,0 +1,37 @@
+
+{% extends "base.html" %}
+{% block content%}
+<h1>DEPLOY</h1>
+<hr>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Details</h5>
+        <hr>
+        <ul class="list-group">
+          <li class="list-group-item">Project : {{project_stage.project.title}}</li>
+          <li class="list-group-item">Stage : {{project_stage.environment}}</li>
+          <li class="list-group-item">Deployment Script : {{project_stage.script_location}}</li>
+          <li class="list-group-item">Host : {{project_stage.host}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Enter branch and hit deploy</h5>
+        <form method="POST">
+          {% csrf_token %}
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="master" aria-label="branch name" aria-describedby="button-deploy" required>
+            <button class="btn btn-outline-danger" type="submit" id="button-deploy">Deploy</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+{% block content%}
+{% include "messages.html" %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Environment</th>
+      <th scope="col">Time</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for d in deployments %}
+      <tr>
+        <th scope="row">{{d.id}}</th>
+        <td>{{d.project_stage}}</td>
+        <td>{{d.created_at}}</td>
+        <td>
+          <a class="btn btn-outline-danger" href="{% url 'deploy_project' id=d.project_stage.id  %}" role="button">Re-Run</a>
+          <a class="btn btn-outline-success" href="{% url 'deploy_results' uuid=d.id  %}" role="button">LOGS</a>
+      </td>
+      </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+{% endblock %}

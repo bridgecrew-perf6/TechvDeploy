@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+
+
+  {% for project_stage in project_stages %}
+
+
+  <div class="col">
+    <div class="card h-100 border-dark">
+      <div class="card-body">
+        <h5 class="card-title">{{project.title}}|{{project_stage.environment}}</h5>
+        <p class="card-text">{{project_stage.summary|linebreaks}}</p>
+      </div>
+      <div class="card-footer">
+        <a href="{% url 'deploy_project' id=project_stage.id %}" class="btn btn-primary stretched-link">Deploy</a>
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+
+
+{% endblock %}

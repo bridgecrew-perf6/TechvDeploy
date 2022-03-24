@@ -2,18 +2,48 @@
 
 {% block content %}
 
-  {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
-  {% endif %}
+<style media="screen">
 
-  {% if next %}
-    {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
-    {% else %}
-      <p>Please login to see this page.</p>
+  .error {
+    margin: auto;
+    width: 50%;
+    border: 3px solid red;
+    padding: 10px;
+  }
+
+  .info {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+  }
+
+</style>
+
+
+
+  {% if form.errors %}
+    <div class="d-flex justify-content-center error">
+      <p>Your username and password didn't match. Please try again.</p>
+    </div>
+  {% else %}
+    {% if next %}
+    <div class="d-flex justify-content-center info">
+      {% if user.is_authenticated %}
+
+        <p>Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</p>
+      {% else %}
+        <p>Please login to see this page.</p>
+      {% endif %}
+      </div>
     {% endif %}
   {% endif %}
+
+
+
+
+
   <form class="form-signin" method="POST">
     {% csrf_token %}
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>

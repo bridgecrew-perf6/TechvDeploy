@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from .models import Project, ProjectStage
 # Create your views here.
 
 
-
+@login_required
 def index(request):
     """View function for projects page of site."""
 
@@ -31,10 +32,12 @@ def index(request):
     return render(request, 'index.html', context = context)
 
 
+@login_required
 def projects(request):
     projects = Project.objects.all()
     return render(request,'projects.html', context = {'projects':projects})
 
+@login_required
 def show_project(request,id):
     project = get_object_or_404(Project, id=id)
     project_stages = ProjectStage.objects.filter(project=project)

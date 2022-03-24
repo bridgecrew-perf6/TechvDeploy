@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from project.models import ProjectStage
 from .models import DeploymentInstance
@@ -10,12 +11,15 @@ import subprocess, shlex
 
 # Create your views here.
 
-
+@login_required
 def deployments(request):
+    """Show all deployments for the user"""
     deployments = DeploymentInstance.objects.filter(user=request.user)
     return render(request,'deployments.html', context = {'deployments':deployments})
 
+@login_required
 def deploy_results(request,uuid):
+    """Taking the log file for the task and shows """
     deployment_instance = get_object_or_404(DeploymentInstance, id=uuid)
 
     try:
@@ -28,7 +32,9 @@ def deploy_results(request,uuid):
 
     return render(request,'deploy_results.html',context = {'deployment_instance':deployment_instance,'out':lines})
 
+@login_required
 def deploy_project(request,id):
+    """Get and post method, getting args and do the deployments"""
     project_stage = get_object_or_404(ProjectStage, id=id)
     if request.method == 'POST':
         branch= request.POST.get('branch', 'master')
@@ -46,6 +52,7 @@ def deploy_project(request,id):
             return redirect('deploy_results', uuid=d_i.id)
 
         else:
+            # TODO:
             print("running in remote")
             print("ssh")
             p = subprocess.Popen(['cat', '/tmp/a.txt'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)

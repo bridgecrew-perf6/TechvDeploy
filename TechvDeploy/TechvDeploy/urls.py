@@ -22,4 +22,5 @@ urlpatterns = [
     path('dashboard/', include('project.urls')),
     path('deploy/', include('deploy.urls')),
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')), #(for login, logout, password management)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -10,7 +10,7 @@
 
     <!-- Add additional CSS in static file -->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
 
     <title>TechvDeploy</title>
   </head>
@@ -48,15 +48,11 @@
   </header>
 
  <div class="container">
-   <div class="cover">
-     {% block content %}
+
+
+      {% block content %}
 
      {% endblock %}
-   </div>
-
-
-
-
  </div>
 
  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
